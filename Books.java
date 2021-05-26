@@ -36,6 +36,7 @@ public class Books
         
         this.currBookId = 4;    // initialise the book id
         
+        this.menu();
     }
     
     /**
@@ -43,6 +44,23 @@ public class Books
      */
     public void addBook()
     {
+        final int MAX_QUANTITY = 99;
+        int quantity = -1;
+        
+        // Ask the user for details
+        String name = UI.askString("Title: ");
+        String author = UI.askString("Author: ");
+        
+        // check boundaries for the number of books added to stock
+        do
+        {
+            quantity = UI.askInt("Quantity: ");
+        }
+        while (0 > quantity || quantity > MAX_QUANTITY);
+        
+        // Increment the book ID counter and add book to hashmap
+        currBookId++;
+        booksMap.put(currBookId, new Book(currBookId, name, author, quantity));
     }
     
     /**
@@ -51,6 +69,8 @@ public class Books
      */
     public void findBook()
     {
+        int bookId= UI.askInt("Id: ");      // Fins book on ID - change to title
+        UI.println(booksMap.get(bookId).getName());
     }
     
     /**
@@ -107,7 +127,5 @@ public class Books
             }
         }
         while (!choice.equalsIgnoreCase("Q"));
-        {
-        }
     }
 }
